@@ -1,0 +1,6 @@
+{
+  "name": "Do My Work",
+  "description": "Minimalist, premium AI worksheet solver powered by Gemini that solves your worksheets and returns completed answer sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

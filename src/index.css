@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+:root {
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .5, 1);
+  --serif: Georgia, "Times New Roman", "Iowan Old Style", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bg: #09090b;
+  --bg-elev: #0d0d10;
+  --bg-elev-2: #131317;
+  --text: #e8e6e1;
+  --text-strong: #ffffff;
+  --muted: #8a8780;
+  --muted-2: #5c5a56;
+  --muted-3: #3a3936;
+  --accent: #c9bfa8;
+  --orange: #ff7a3d;
+  --orange-soft: #e88e63;
+  --orange-glow: rgba(255,122,61,.12);
+  --hairline: rgba(255,255,255,.06);
+  --hairline-strong: rgba(255,255,255,.12);
+  --grain-opacity: .022;
+  --px: 0;
+  --py: 0;
+}
+
+/* GIRL THEME: More pink instead of orange! */
+body[data-gender="girl"] {
+  --orange: #ff6b9d;
+  --orange-soft: #e88bab;
+  --orange-glow: rgba(255,107,157,.15);
+  --accent: #e8b4c8;
+}
+
+body[data-gender="girl"] ::selection {
+  background: #ff6b9d;
+  color: #09090b;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--orange);
+  color: #09090b;
+}
+
+.font-serif-italic {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+
+.font-mono-tabular {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Background grid & grain */
+.bg-grid-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 5%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 5%, black 0%, transparent 75%);
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Custom delicate scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes sunSpinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-sun-spin {
+  animation: sunSpinSlow 480s linear infinite;
+  transform-origin: center;
+}
+
+.animate-glow-pulse {
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+.animate-float-bob {
+  animation: floatBob 6s ease-in-out infinite;
+}
+
+/* Shimmer bar */
+@keyframes shimmerTrack {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.shimmer-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: translateX(-100%);
+  animation: shimmerTrack 2.5s ease-in-out infinite;
+}
+
+/* Fluid drawer opening animation */
+@keyframes drawerIn {
+  0% { transform: translateX(100%); opacity: 0.5; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.animate-drawer-in {
+  animation: drawerIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Subtle error shake */
+@keyframes softShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: softShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Print styling for printing completed worksheet */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header, footer, .no-print {
+    display: none !important;
+  }
+}
